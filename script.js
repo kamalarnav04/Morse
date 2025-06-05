@@ -54,6 +54,7 @@ const morseButtons = document.querySelectorAll('.morse-btn');
 const timingIndicator = document.getElementById('timingIndicator');
 const timingBar = document.getElementById('timingBar');
 const timingText = document.getElementById('timingText');
+const separationDelayInput = document.getElementById('separationDelay');
 
 // State
 let currentMorse = '';
@@ -63,7 +64,7 @@ let decodedText = '';
 // Auto letter separation timing
 let lastInputTime = 0;
 let letterSeparationTimer = null;
-const LETTER_SEPARATION_DELAY = 500; // ms - auto separate letters after pause
+let LETTER_SEPARATION_DELAY = 500; // ms - auto separate letters after pause (now dynamic)
 
 // Audio Context for sound effects
 let audioContext;
@@ -273,6 +274,26 @@ function populateReference() {
     });
 }
 
+// Update letter separation delay
+function updateSeparationDelay() {
+    const seconds = parseFloat(separationDelayInput.value);
+    if (seconds >= 0.1 && seconds <= 5) {
+        LETTER_SEPARATION_DELAY = seconds * 1000; // Convert to milliseconds
+        console.log(`Updated letter separation delay to ${seconds}s (${LETTER_SEPARATION_DELAY}ms)`);
+        
+        // Update footer text
+        updateFooterText(seconds);
+    }
+}
+
+// Update footer text with current timing
+function updateFooterText(seconds) {
+    const footer = document.querySelector('footer p');
+    if (footer) {
+        footer.innerHTML = `🎹 <strong>Arrow Keys:</strong> ⬅️ Left = DOT (•) | ➡️ Right = DASH (—) | <strong>Space</strong> = Letter separator | <strong>Enter</strong> = Word separator | Auto letter separation after ${seconds}s pause`;
+    }
+}
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize displays
@@ -340,13 +361,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearAll();
                 break;
         }
-    });    
-    // Sound toggle listener
+    });      // Sound toggle listener
     soundToggle.addEventListener('change', function() {
         if (this.checked && !isAudioInitialized) {
             initAudio();
         }
     });
+    
+    // Timing control listener
+    separationDelayInput.addEventListener('input', updateSeparationDelay);
+    separationDelayInput.addEventListener('change', updateSeparationDelay);
+    
+    // Initialize timing display
+    updateSeparationDelay();
 });
 
 // Add keyboard visual feedback
@@ -399,7 +426,7 @@ console.log(`
 • Press "Escape" to clear all
 
 ✨ Features:
-• Auto letter separation after 0.5s pause
+• Customizable auto letter separation timing (0.1s - 5s)
 • Real-time Morse to text translation
 • Sound effects for dots and dashes
 

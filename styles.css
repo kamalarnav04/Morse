@@ -152,7 +152,7 @@ section h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .sound-toggle label {
@@ -175,6 +175,55 @@ section h3 {
     width: 20px;
     height: 20px;
     accent-color: #4299e1;
+}
+
+/* Timing Control */
+.timing-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.timing-control label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    padding: 12px 20px;
+    background: linear-gradient(145deg, #e6fffa, #f0fff4);
+    border: 2px solid #48bb78;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.timing-control label:hover {
+    background: linear-gradient(145deg, #c6f6d5, #e6fffa);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.2);
+}
+
+.timing-control input[type="number"] {
+    width: 80px;
+    padding: 8px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    background: white;
+    color: #2d3748;
+    transition: all 0.3s ease;
+}
+
+.timing-control input[type="number"]:focus {
+    outline: none;
+    border-color: #48bb78;
+    box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.1);
+    background: #f7fafc;
+}
+
+.timing-control input[type="number"]:hover {
+    border-color: #68d391;
 }
 
 /* Timing Indicator */
