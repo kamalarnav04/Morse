@@ -18,6 +18,31 @@ for (let key in morseCode) {
     reverseMorseCode[morseCode[key]] = key;
 }
 
+// Debug: Check if reverse dictionary was created properly
+console.log('Morse Code Dictionary created:');
+console.log('Sample entries:', Object.entries(reverseMorseCode).slice(0, 5));
+console.log('Total entries:', Object.keys(reverseMorseCode).length);
+
+// Test function for common letters
+function testMorseDecoding() {
+    const testCases = [
+        { morse: '.', expected: 'E' },
+        { morse: '-', expected: 'T' },
+        { morse: '.-', expected: 'A' },
+        { morse: '...', expected: 'S' },
+        { morse: '---', expected: 'O' }
+    ];
+    
+    console.log('Testing morse code decoding:');
+    testCases.forEach(test => {
+        const result = reverseMorseCode[test.morse];
+        console.log(`"${test.morse}" -> "${result}" (expected: "${test.expected}") ${result === test.expected ? '✅' : '❌'}`);
+    });
+}
+
+// Run test on page load
+testMorseDecoding();
+
 // DOM Elements
 const morseOutput = document.getElementById('morseOutput');
 const textOutput = document.getElementById('textOutput');
@@ -26,11 +51,19 @@ const backspaceBtn = document.getElementById('backspaceBtn');
 const soundToggle = document.getElementById('soundToggle');
 const referenceGrid = document.getElementById('referenceGrid');
 const morseButtons = document.querySelectorAll('.morse-btn');
+const timingIndicator = document.getElementById('timingIndicator');
+const timingBar = document.getElementById('timingBar');
+const timingText = document.getElementById('timingText');
 
 // State
 let currentMorse = '';
 let currentLetter = '';
 let decodedText = '';
+
+// Auto letter separation timing
+let lastInputTime = 0;
+let letterSeparationTimer = null;
+const LETTER_SEPARATION_DELAY = 500; // ms - auto separate letters after pause
 
 // Audio Context for sound effects
 let audioContext;
@@ -110,6 +143,20 @@ function addMorseChar(char) {
             button.classList.add('pulse');
             setTimeout(() => button.classList.remove('pulse'), 300);
         }
+        
+        // Update timing for auto letter separation
+        lastInputTime = Date.now();
+        
+        // Clear existing timer and set new one
+        if (letterSeparationTimer) {
+            clearTimeout(letterSeparationTimer);
+        }
+        
+        letterSeparationTimer = setTimeout(() => {
+            if (currentLetter) {
+                addSpace();
+            }
+        }, LETTER_SEPARATION_DELAY);
     }
     
     updateDisplays();
@@ -120,14 +167,23 @@ function addSpace() {
     if (currentLetter) {
         // Decode current letter
         const decodedChar = reverseMorseCode[currentLetter];
+        
         if (decodedChar) {
             decodedText += decodedChar;
+            console.log(`✅ Decoded "${currentLetter}" -> "${decodedChar}"`);
         } else {
             decodedText += '?'; // Unknown morse code
+            console.warn(`❌ Unknown morse code: "${currentLetter}"`);
         }
         
         currentLetter = '';
         currentMorse += ' ';
+        
+        // Clear the auto-separation timer
+        if (letterSeparationTimer) {
+            clearTimeout(letterSeparationTimer);
+            letterSeparationTimer = null;
+        }
         
         // Visual feedback
         const button = document.querySelector('[data-morse=" "]');
@@ -188,6 +244,13 @@ function clearAll() {
     currentMorse = '';
     currentLetter = '';
     decodedText = '';
+    
+    // Clear any pending timers
+    if (letterSeparationTimer) {
+        clearTimeout(letterSeparationTimer);
+        letterSeparationTimer = null;
+    }
+    
     updateDisplays();
     
     // Visual feedback
@@ -234,8 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
-    // Control button listeners
+      // Control button listeners
     clearBtn.addEventListener('click', clearAll);
     backspaceBtn.addEventListener('click', backspace);
     
@@ -243,33 +305,42 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(event) {
         initAudio(); // Initialize audio on first user interaction
         
-        // Prevent default for our handled keys
-        if (['.', '-', ' ', 'Enter', 'Backspace'].includes(event.key)) {
+        // Handle arrow keys for morse input
+        if (event.key === 'ArrowLeft') {
             event.preventDefault();
+            addMorseChar('.');
+            console.log('⬅️ Left arrow = DOT');
+            return;
         }
         
+        if (event.key === 'ArrowRight') {
+            event.preventDefault();
+            addMorseChar('-');
+            console.log('➡️ Right arrow = DASH');
+            return;
+        }
+        
+        // Other key handlers
         switch(event.key) {
-            case '.':
-                addMorseChar('.');
-                break;
-            case '-':
-                addMorseChar('-');
-                break;
             case ' ':
+                event.preventDefault();
                 addSpace();
+                console.log('Manual letter separation');
                 break;
             case 'Enter':
+                event.preventDefault();
                 addWordSeparator();
                 break;
             case 'Backspace':
+                event.preventDefault();
                 backspace();
                 break;
             case 'Escape':
+                event.preventDefault();
                 clearAll();
                 break;
         }
-    });
-    
+    });    
     // Sound toggle listener
     soundToggle.addEventListener('change', function() {
         if (this.checked && !isAudioInitialized) {
@@ -283,10 +354,10 @@ document.addEventListener('keydown', function(event) {
     let targetButton = null;
     
     switch(event.key) {
-        case '.':
+        case 'ArrowLeft':
             targetButton = document.querySelector('[data-morse="."]');
             break;
-        case '-':
+        case 'ArrowRight':
             targetButton = document.querySelector('[data-morse="-"]');
             break;
         case ' ':
@@ -319,13 +390,18 @@ document.addEventListener('visibilitychange', function() {
 
 // Add some helpful tips
 console.log(`
-🎯 Morse Code Typing App - Keyboard Shortcuts:
-• Press "." for dot
-• Press "-" for dash  
-• Press "Space" to end current letter
-• Press "Enter" to separate words
+🎯 Morse Code Typing App - ARROW KEY MODE:
+⬅️ Press "Left Arrow" for DOT (•)
+➡️ Press "Right Arrow" for DASH (—)
+• Press "Space" to separate letters manually
+• Press "Enter" to separate words  
 • Press "Backspace" to delete
 • Press "Escape" to clear all
+
+✨ Features:
+• Auto letter separation after 0.5s pause
+• Real-time Morse to text translation
+• Sound effects for dots and dashes
 
 Have fun learning Morse code! 📡
 `);
