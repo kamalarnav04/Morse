@@ -2,6 +2,14 @@
 
 A modern, interactive web application for learning and practicing Morse code. Features real-time conversion, audio feedback, and an intuitive keyboard interface.
 
+## 📸 Screenshots
+
+### Main Interface
+![Main Interface](screenshots/MI.png)
+
+### Text to Morse Converter
+![Text to Morse Converter](screenshots/TOM.png)
+
 ## ✨ Features
 
 - **Interactive Morse Input**: Use arrow keys for easy input (Left = DOT, Right = DASH)
