@@ -6,21 +6,21 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
     min-height: 100vh;
-    color: #333;
+    color: #f7fafc;
     padding: 20px;
 }
 
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
 }
 
 /* Header Styles */
@@ -33,7 +33,7 @@ header {
 
 header h1 {
     font-size: 2.5rem;
-    color: #4a5568;
+    color: #1a202c;
     margin-bottom: 10px;
     font-weight: 700;
 }
@@ -71,7 +71,8 @@ section h3 {
 }
 
 .morse-btn {
-    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    background: linear-gradient(145deg, #1f2937, #111827);
+    color: #fff;
     border: none;
     border-radius: 15px;
     padding: 20px;
@@ -115,23 +116,23 @@ section h3 {
 
 /* Specific button colors */
 .dot-btn {
-    background: linear-gradient(145deg, #48bb78, #38a169);
-    color: white;
+    background: linear-gradient(145deg, #10b981, #059669);
+    color: #fff;
 }
 
 .dash-btn {
-    background: linear-gradient(145deg, #4299e1, #3182ce);
-    color: white;
+    background: linear-gradient(145deg, #3b82f6, #1e40af);
+    color: #fff;
 }
 
 .space-btn {
-    background: linear-gradient(145deg, #ed8936, #dd6b20);
-    color: white;
+    background: linear-gradient(145deg, #f59e0b, #b45309);
+    color: #fff;
 }
 
 .word-btn {
-    background: linear-gradient(145deg, #9f7aea, #805ad5);
-    color: white;
+    background: linear-gradient(145deg, #8b5cf6, #6d28d9);
+    color: #fff;
 }
 
 .morse-symbol {
@@ -288,7 +289,7 @@ section h3 {
     border-radius: 12px;
     padding: 20px;
     min-height: 120px;
-    font-family: 'Courier New', monospace;
+    font-family: 'Roboto Mono', monospace;
     font-size: 1.1rem;
     line-height: 1.6;
     overflow-wrap: break-word;
@@ -328,8 +329,8 @@ section h3 {
 }
 
 .control-btn {
-    background: linear-gradient(145deg, #ffffff, #f0f0f0);
-    border: 2px solid #e2e8f0;
+    background: linear-gradient(145deg, #1e40af, #1e3a8a);
+    border: 2px solid #1e3a8a;
     border-radius: 12px;
     padding: 15px 30px;
     font-size: 1rem;
@@ -347,15 +348,15 @@ section h3 {
 }
 
 .clear-btn {
-    background: linear-gradient(145deg, #fed7d7, #feb2b2);
-    border-color: #fc8181;
-    color: #c53030;
+    background: linear-gradient(145deg, #dc2626, #b91c1c);
+    border-color: #991b1b;
+    color: #fff;
 }
 
 .backspace-btn {
-    background: linear-gradient(145deg, #feebc8, #fbd38d);
-    border-color: #f6ad55;
-    color: #c05621;
+    background: linear-gradient(145deg, #f59e0b, #b45309);
+    border-color: #92400e;
+    color: #fff;
 }
 
 /* Reference Section */
@@ -413,7 +414,7 @@ section h3 {
 }
 
 .reference-morse {
-    font-family: 'Courier New', monospace;
+    font-family: 'Roboto Mono', monospace;
     color: #4299e1;
     font-weight: bold;
 }
