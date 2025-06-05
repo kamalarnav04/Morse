@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Code Typing App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Morse Code Typing App</h1>
+            <p>Type using keyboard or click buttons to create Morse code!</p>
+        </header>
+
+        <main>
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2>Morse Input</h2>
+                <div class="morse-keyboard">
+                    <button class="morse-btn dot-btn" data-morse="." title="Dot (Press period key)">
+                        <span class="morse-symbol">•</span>
+                        <span class="key-hint">.</span>
+                    </button>
+                    <button class="morse-btn dash-btn" data-morse="-" title="Dash (Press minus key)">
+                        <span class="morse-symbol">—</span>
+                        <span class="key-hint">-</span>
+                    </button>
+                    <button class="morse-btn space-btn" data-morse=" " title="Letter Space (Press Space)">
+                        <span class="morse-symbol">Space</span>
+                        <span class="key-hint">Space</span>
+                    </button>
+                    <button class="morse-btn word-btn" data-morse="/" title="Word Space (Press Enter)">
+                        <span class="morse-symbol">Word</span>
+                        <span class="key-hint">Enter</span>
+                    </button>
+                </div>
+                <div class="sound-toggle">
+                    <label>
+                        <input type="checkbox" id="soundToggle" checked>
+                        <span>Sound Effects</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Display Section -->
+            <section class="display-section">
+                <div class="morse-display">
+                    <h3>Morse Code:</h3>
+                    <div class="display-box morse-output" id="morseOutput">
+                        <span class="placeholder">Your Morse code will appear here...</span>
+                    </div>
+                </div>
+                
+                <div class="text-display">
+                    <h3>Decoded Text:</h3>
+                    <div class="display-box text-output" id="textOutput">
+                        <span class="placeholder">Decoded text will appear here...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Controls -->
+            <section class="controls">
+                <button class="control-btn clear-btn" id="clearBtn">
+                    🗑️ Clear All
+                </button>
+                <button class="control-btn backspace-btn" id="backspaceBtn">
+                    ⌫ Backspace
+                </button>
+            </section>
+
+            <!-- Morse Code Reference -->
+            <section class="reference">
+                <details>
+                    <summary>📖 Morse Code Reference</summary>
+                    <div class="reference-grid" id="referenceGrid">
+                        <!-- Reference will be populated by JavaScript -->
+                    </div>
+                </details>
+            </section>
+        </main>
+
+        <footer>
+            <p>Use keyboard shortcuts: <strong>.</strong> (dot), <strong>-</strong> (dash), <strong>Space</strong> (letter separator), <strong>Enter</strong> (word separator)</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

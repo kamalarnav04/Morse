@@ -1,0 +1,390 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #4a5568;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+header p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+/* Section Styles */
+section {
+    margin-bottom: 30px;
+}
+
+section h2, section h3 {
+    color: #2d3748;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+section h2 {
+    font-size: 1.5rem;
+}
+
+section h3 {
+    font-size: 1.2rem;
+}
+
+/* Morse Keyboard */
+.morse-keyboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.morse-btn {
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border: none;
+    border-radius: 15px;
+    padding: 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.morse-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.morse-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.morse-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.5s;
+}
+
+.morse-btn:hover::before {
+    left: 100%;
+}
+
+/* Specific button colors */
+.dot-btn {
+    background: linear-gradient(145deg, #48bb78, #38a169);
+    color: white;
+}
+
+.dash-btn {
+    background: linear-gradient(145deg, #4299e1, #3182ce);
+    color: white;
+}
+
+.space-btn {
+    background: linear-gradient(145deg, #ed8936, #dd6b20);
+    color: white;
+}
+
+.word-btn {
+    background: linear-gradient(145deg, #9f7aea, #805ad5);
+    color: white;
+}
+
+.morse-symbol {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.key-hint {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* Sound Toggle */
+.sound-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sound-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px 20px;
+    background: #f7fafc;
+    border-radius: 25px;
+    transition: background 0.3s ease;
+}
+
+.sound-toggle label:hover {
+    background: #edf2f7;
+}
+
+.sound-toggle input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #4299e1;
+}
+
+/* Display Section */
+.display-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.display-box {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 120px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    overflow-wrap: break-word;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.display-box:focus-within,
+.display-box:hover {
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.morse-output {
+    background: linear-gradient(145deg, #e6fffa, #f0fff4);
+    border-color: #48bb78;
+    color: #2f855a;
+}
+
+.text-output {
+    background: linear-gradient(145deg, #ebf8ff, #f0f8ff);
+    border-color: #4299e1;
+    color: #2b6cb0;
+}
+
+.placeholder {
+    color: #a0aec0;
+    font-style: italic;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.control-btn {
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.clear-btn {
+    background: linear-gradient(145deg, #fed7d7, #feb2b2);
+    border-color: #fc8181;
+    color: #c53030;
+}
+
+.backspace-btn {
+    background: linear-gradient(145deg, #feebc8, #fbd38d);
+    border-color: #f6ad55;
+    color: #c05621;
+}
+
+/* Reference Section */
+.reference {
+    margin-top: 40px;
+}
+
+.reference details {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    border: 2px solid #e9ecef;
+}
+
+.reference summary {
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    user-select: none;
+}
+
+.reference summary:hover {
+    background: #e9ecef;
+}
+
+.reference-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.reference-item {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.reference-item:hover {
+    transform: scale(1.05);
+}
+
+.reference-char {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2d3748;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.reference-morse {
+    font-family: 'Courier New', monospace;
+    color: #4299e1;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 2px solid #e0e0e0;
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .morse-keyboard {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .display-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .reference-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .morse-keyboard {
+        grid-template-columns: 1fr;
+    }
+    
+    .morse-btn {
+        padding: 15px;
+    }
+}
+
+/* Animation classes */
+.pulse {
+    animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.flash {
+    animation: flash 0.2s ease-in-out;
+}
+
+@keyframes flash {
+    0% { background-color: inherit; }
+    50% { background-color: rgba(66, 153, 225, 0.3); }
+    100% { background-color: inherit; }
+}
