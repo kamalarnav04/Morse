@@ -62,8 +62,7 @@
                     <div class="display-box text-output" id="textOutput">
                         <span class="placeholder">Decoded text will appear here...</span>
                     </div>
-                </div>
-            </section>
+                </div>            </section>
 
             <!-- Controls -->
             <section class="controls">
@@ -74,6 +73,31 @@
                     ⌫ Backspace
                 </button>
             </section>
+
+            <!-- Text to Morse Converter Section -->
+            <section class="text-to-morse-section">
+                <h2>Text to Morse Converter</h2>
+                <div class="text-input-area">
+                    <label for="textInput">
+                        <span>Enter text to convert to Morse code:</span>
+                    </label>
+                    <textarea id="textInput" placeholder="Type your text here..." rows="3"></textarea>
+                </div>
+                
+                <div class="morse-result">
+                    <h3>Generated Morse Code:</h3>
+                    <div class="display-box morse-result-output" id="morseResultOutput">
+                        <span class="placeholder">Morse code will appear here...</span>
+                    </div>
+                </div>
+                  <div class="text-to-morse-controls">
+                    <button class="control-btn play-morse-btn" id="playMorseBtn" disabled>
+                        🔊 Play Morse
+                    </button>
+                    <button class="control-btn clear-text-btn" id="clearTextBtn">
+                        🗑️ Clear Text
+                    </button>
+                </div>            </section>
 
             <!-- Morse Code Reference -->
             <section class="reference">

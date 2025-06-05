@@ -56,6 +56,12 @@ const timingBar = document.getElementById('timingBar');
 const timingText = document.getElementById('timingText');
 const separationDelayInput = document.getElementById('separationDelay');
 
+// Text to Morse elements
+const textInput = document.getElementById('textInput');
+const morseResultOutput = document.getElementById('morseResultOutput');
+const playMorseBtn = document.getElementById('playMorseBtn');
+const clearTextBtn = document.getElementById('clearTextBtn');
+
 // State
 let currentMorse = '';
 let currentLetter = '';
@@ -294,6 +300,104 @@ function updateFooterText(seconds) {
     }
 }
 
+// Text to Morse conversion functions
+function textToMorse(text) {
+    return text.toUpperCase()
+        .split('')
+        .map(char => {
+            if (char === ' ') return '/';
+            return morseCode[char] || '?';
+        })
+        .join(' ');
+}
+
+function convertTextToMorse() {
+    const inputText = textInput.value.trim();
+    
+    if (!inputText) {
+        morseResultOutput.innerHTML = '<span class="placeholder">Morse code will appear here...</span>';
+        playMorseBtn.disabled = true;
+        return;
+    }
+    
+    const morseResult = textToMorse(inputText);
+    morseResultOutput.innerHTML = morseResult;
+    morseResultOutput.classList.remove('placeholder');
+    playMorseBtn.disabled = false;
+    
+    console.log(`Converted "${inputText}" to Morse: "${morseResult}"`);
+}
+
+function playMorseSequence() {
+    const morseText = morseResultOutput.textContent;
+    if (!morseText || morseText.includes('Morse code will appear here')) return;
+    
+    if (!soundToggle.checked) {
+        alert('Please enable sound effects to play Morse code');
+        return;
+    }
+    
+    initAudio();
+    if (!audioContext) return;
+    
+    // Disable button during playback
+    playMorseBtn.disabled = true;
+    playMorseBtn.textContent = '🔊 Playing...';
+    
+    let currentTime = audioContext.currentTime;
+    const dotDuration = 0.1;
+    const dashDuration = 0.3;
+    const elementGap = 0.1;
+    const letterGap = 0.3;
+    const wordGap = 0.7;
+    
+    for (let i = 0; i < morseText.length; i++) {
+        const char = morseText[i];
+        
+        if (char === '.') {
+            playScheduledBeep(currentTime, 800, dotDuration);
+            currentTime += dotDuration + elementGap;
+        } else if (char === '-') {
+            playScheduledBeep(currentTime, 600, dashDuration);
+            currentTime += dashDuration + elementGap;
+        } else if (char === ' ') {
+            currentTime += letterGap;
+        } else if (char === '/') {
+            currentTime += wordGap;
+        }
+    }
+    
+    // Re-enable button after playback
+    setTimeout(() => {
+        playMorseBtn.disabled = false;
+        playMorseBtn.textContent = '🔊 Play Morse';
+    }, (currentTime - audioContext.currentTime) * 1000 + 500);
+}
+
+function playScheduledBeep(startTime, frequency, duration) {
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = frequency;
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0.1, startTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+    
+    oscillator.start(startTime);
+    oscillator.stop(startTime + duration);
+}
+
+function clearTextInput() {
+    textInput.value = '';
+    morseResultOutput.innerHTML = '<span class="placeholder">Morse code will appear here...</span>';
+    playMorseBtn.disabled = true;
+    textInput.focus();
+}
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize displays
@@ -371,9 +475,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Timing control listener
     separationDelayInput.addEventListener('input', updateSeparationDelay);
     separationDelayInput.addEventListener('change', updateSeparationDelay);
-    
-    // Initialize timing display
+      // Initialize timing display
     updateSeparationDelay();
+      // Text to Morse event listeners
+    textInput.addEventListener('input', convertTextToMorse);
+    textInput.addEventListener('paste', () => {
+        setTimeout(convertTextToMorse, 10); // Delay to allow paste to complete
+    });
+    playMorseBtn.addEventListener('click', playMorseSequence);
+    clearTextBtn.addEventListener('click', clearTextInput);
 });
 
 // Add keyboard visual feedback
@@ -428,7 +538,13 @@ console.log(`
 ✨ Features:
 • Customizable auto letter separation timing (0.1s - 5s)
 • Real-time Morse to text translation
+• Text to Morse code converter with audio playback
 • Sound effects for dots and dashes
+
+📝 Text to Morse:
+• Type text in the text area for instant conversion
+• Use "Play Morse" button to hear the audio
+• Supports letters, numbers, and common punctuation
 
 Have fun learning Morse code! 📡
 `);

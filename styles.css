@@ -427,6 +427,96 @@ footer {
     font-size: 0.9rem;
 }
 
+/* Text to Morse Converter Section */
+.text-to-morse-section {
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 15px;
+    padding: 25px;
+    border: 2px solid #e2e8f0;
+    margin: 30px 0;
+}
+
+.text-to-morse-section h2 {
+    color: #2d3748;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.text-input-area {
+    margin-bottom: 20px;
+}
+
+.text-input-area label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.text-input-area textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.text-input-area textarea:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.text-input-area textarea::placeholder {
+    color: #a0aec0;
+}
+
+.morse-result {
+    margin-bottom: 20px;
+}
+
+.morse-result h3 {
+    color: #2d3748;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.morse-result-output {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    min-height: 80px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    word-break: break-all;
+}
+
+.text-to-morse-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.play-morse-btn {
+    background: linear-gradient(145deg, #4299e1, #3182ce);
+}
+
+.play-morse-btn:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.clear-text-btn {
+    background: linear-gradient(145deg, #f56565, #e53e3e);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -453,6 +543,11 @@ footer {
     
     .reference-grid {
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    
+    .text-to-morse-controls {
+        flex-direction: column;
+        align-items: stretch;
     }
 }
 
